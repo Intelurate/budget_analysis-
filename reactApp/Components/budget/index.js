@@ -95,7 +95,7 @@ class List extends Component {
             <h4>Manufacturing Overhead Costs</h4>
         </div>
         <table>
-        
+            <tbody>
             <tr>
                 <td>Cost Item</td>
                 <td>Q1 Forecast Amount</td>
@@ -109,7 +109,7 @@ class List extends Component {
             <td><input onChange={(v)=>this.updateForm(v.target.value, 'actualamount')} type="text" value={this.props.newBudget.get('actualamount')} />&nbsp;&nbsp;</td>
             <td><a style={{ float: 'right' }}  onClick={()=>this.addBudget() } className="btn btn-primary btn-sm">Add Budget</a></td>
         </tr>
-      
+          </tbody>
 
     </table>
            

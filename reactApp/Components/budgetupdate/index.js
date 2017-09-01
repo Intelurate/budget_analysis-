@@ -86,22 +86,21 @@ class BudgetUpdate extends Component {
             <h4>Manufacturing Overhead Costs</h4>
         </div>
         <table>
-        
-            <tr>
-                <td>Cost Item</td>
-                <td>Q1 Forecast Amount</td>
-                <td>Q1 Actual Amount</td>
+            <tbody>
+                <tr>
+                    <td>Cost Item</td>
+                    <td>Q1 Forecast Amount</td>
+                    <td>Q1 Actual Amount</td>
 
+                </tr>
+            
+                <tr>
+                <td><input onChange={(v)=>this.updateBudget(v.target.value, 'costitem')} type="text" value={this.props.budget.get('costitem')} />&nbsp;&nbsp;</td>
+                <td><input onChange={(v)=>this.updateBudget(v.target.value, 'forecastamount')} type="text" value={this.props.budget.get('forecastamount')} />&nbsp;&nbsp;</td>
+                <td><input onChange={(v)=>this.updateBudget(v.target.value, 'actualamount')} type="text" value={this.props.budget.get('actualamount')} />&nbsp;&nbsp;</td>
+                <td><a style={{ float: 'right' }}  onClick={()=>this.updateBudget() } className="btn btn-primary btn-sm">Update Budget Item</a></td>
             </tr>
-        
-            <tr>
-            <td><input onChange={(v)=>this.updateBudget(v.target.value, 'costitem')} type="text" value={this.props.budget.get('costitem')} />&nbsp;&nbsp;</td>
-            <td><input onChange={(v)=>this.updateBudget(v.target.value, 'forecastamount')} type="text" value={this.props.budget.get('forecastamount')} />&nbsp;&nbsp;</td>
-            <td><input onChange={(v)=>this.updateBudget(v.target.value, 'actualamount')} type="text" value={this.props.budget.get('actualamount')} />&nbsp;&nbsp;</td>
-            <td><a style={{ float: 'right' }}  onClick={()=>this.updateBudget() } className="btn btn-primary btn-sm">Update Budget Item</a></td>
-        </tr>
-      
-
+          </tbody>
     </table>
            
 
