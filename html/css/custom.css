@@ -1,0 +1,22 @@
+.my_border{
+    border: 1px solid red;
+    width: 120px;
+    background-color: white;
+}
+
+.my_border_change{
+    width: 1000px;
+    border: 1px solid green;
+    transition-timing-function: cubic-bezier(0.25,0.1,0.25,1);
+    transition: width 2s;
+}
+
+
+.change_my_div_color{
+  transition: background-color 2s ease, color 2s ease, font-size 2s ease, font-weight 2s ease;
+  background-color: #ff0000;
+  color: white;
+    font-size: 20px;
+    font-weight: bold;
+
+}
