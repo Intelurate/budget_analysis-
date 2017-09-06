@@ -132,12 +132,21 @@ class List extends Component {
                     {tb}
                 </tbody>
              </table>
+             {this.props.children}
         </div>
 
     );
 }
 };
 
+const myCom = () => {
+    return <div>Eddie</div>
+}
+
+
+const myCom2 = () => {
+    return <div>Brown</div>
+}
 
 function mapStateToProps(state) {
     return {
@@ -148,6 +157,10 @@ function mapStateToProps(state) {
 
 List = connect(mapStateToProps)(List);
 
-const BudgetRoute = <Route key="budget" path="budget" component = { List } />
+const BudgetRoute = <Route key="budget" path="budget" component = { List } >
+    <IndexRoute key="upi" component={myCom} />
+    <Route key="up" path="up" component = { myCom } />
+    <Route key="down" path="down" component = { myCom2 } />
+</Route>
 
 export { BudgetRoute }

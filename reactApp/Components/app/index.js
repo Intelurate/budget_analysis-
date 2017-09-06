@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Header from '../header';
+import Header from '../header2';
 import Footer from '../footer';
 class Main extends Component {
 
@@ -11,6 +11,7 @@ class Main extends Component {
         //this.props.dispatch(UserActions.changeUser());
     }
 
+    
     render() {
         return (
             <div>
