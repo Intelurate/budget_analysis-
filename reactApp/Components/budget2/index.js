@@ -21,21 +21,38 @@ class TableItem extends Component {
     }
 
     render() {
-        return (        
+        return (    
     <tr>
-        <td>{this.props.item.get('costitem')}</td>
+        {/* Page Load and Post Back*/}
+
+        {/* Cost Item Column */}
+        {/* <td>{this.props.item.get('costitem')}</td> */}
         {/* <td> <input onChange={(v)=>this.updateForm(v.target.value, 'costitem')} type="text" value={ this.props.item.get('costitem') || "--insert cost item--" } /> </td> */}
+        <td> {this.props.item.get('costitem') ? this.props.item.get('costitem') : 
+            <td> <input onChange={(v)=>this.updateForm(v.target.value, 'costitem')} type="text" value={ this.props.item.get('costitem') || "--insert cost item--" } /> </td>
+        } </td>
 
-        <td> {this.props.item.get('forecastamount')}</td>
-        {/* <td> <input onChange={(v)=>this.updateForm(v.target.value, 'forecastamount')} type="text" value={ this.props.item.get('forecastamount') || "--insert a forecast amount--" } /> </td> */}
+        {/* Forecast Column */}
+        {/* <td> {this.props.item.get('forecastamount')}</td> */}
+        <td> {this.props.item.get('forecastamount') ? this.props.item.get('forecastamount') : 
+            <td> <input onChange={(v)=>this.updateForm(v.target.value, 'forecastamount')} type="text" value={ this.props.item.get('forecastamount') || "--insert forecast amount--" } /> </td>
+        } </td>        
 
-        <td> {this.props.item.get('actualamount') || 0 }</td>
-        {/* <td> <input onChange={(v)=>this.updateForm(v.target.value, 'actualamount')} type="text" value={ this.props.item.get('actualamount') || "--insert an actual amount--" } /> </td> */}
-        
+        {/* <td> {this.props.item.get('actualamount') || 0 }</td> */}
+        <td> {this.props.item.get('actualamount') ? this.props.item.get('actualamount') : 
+            <td> <input onChange={(v)=>this.updateForm(v.target.value, 'actualamount')} type="text" value={ this.props.item.get('actualamount') || "--insert actual amount--" } /> </td>
+        } </td>           
+
+        {/* Variance Column */}
         <td> {this.props.item.get('actualamount') ? this.props.item.get('actualamount') - this.props.item.get('forecastamount')  : 0 } </td>
-        <td>{this.props.item.get('actualamount') ? (this.props.item.get('actualamount') -   this.props.item.get('forecastamount')) / this.props.item.get('forecastamount')  * 100 : 0 }%</td>
+
+        {/* Variance Percent Column */}
+        <td> {this.props.item.get('actualamount') ? (this.props.item.get('actualamount') -   this.props.item.get('forecastamount')) / this.props.item.get('forecastamount')  * 100 : 0 }%</td>
+        
+        {/* Update Button */}
         <td><a style={{ float: 'left' }}  onClick={()=>this.updateBudget(this.props.item.get("_id", "costitem")) } className="btn btn-primary btn-sm">Update</a></td>
-        <td></td>
+
+        {/* Delete Button */}
         <td><img style={{cursor:'pointer', float: 'right'}} src="/images/garbage.png" onClick={()=>this.deleteMe(this.props.item.get("_id"))}/></td>
     </tr>)
         
@@ -72,11 +89,10 @@ class List extends Component {
 
     addBudget(){ 
         this.props.dispatch(BudgetActions2.addBudgetAsync(
-            //I have to get rid of this and use a variable...EB
-            //<input onChange={(v)=>this.updateForm(v.target.value, 'costitem')} type="text" value={this.props.newBudget.get('costitem')} />,
-            <input type="text" value={ "555"} />,
-            <input onChange={(v)=>this.updateForm(v.target.value, 'forecastamount')} type="text" value={this.props.newBudget.get('forecastamount')} />,
-            <input onChange={(v)=>this.updateForm(v.target.value, 'actualamount')} type="text" value={this.props.newBudget.get('actualamount')} /> 
+            // //this.props.dispatch(BudgetActions2.addBudgetAsync(this.props.newBudget.get('costitem'), this.props.newBudget.get('forecastamount'), this.props.newBudget.get('actualamount') ) )
+            // <input onChange={(v)=>this.updateForm(v.target.value, 'costitem')} type="text" value={this.props.newBudget.get('costitem')} />,
+            // <input onChange={(v)=>this.updateForm(v.target.value, 'forecastamount')} type="text" value={this.props.newBudget.get('forecastamount')} />,
+            // <input onChange={(v)=>this.updateForm(v.target.value, 'actualamount')} type="text" value={this.props.newBudget.get('actualamount')} />
         ) )
     }
 
@@ -86,7 +102,7 @@ class List extends Component {
 
     render() {
         
-    var tb = Table(this.props.budgetList);
+    var tb = Table(this.props.budgetList);var tb = Table(this.props.budgetList);
 
     return (
         <div>
