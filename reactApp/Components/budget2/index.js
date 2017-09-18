@@ -16,8 +16,14 @@ class TableItem extends Component {
         }
     }
 
-   deleteMe(id){        
+   deleteMe(id){
+        console.log('deleteMe(id) inside budget2', "...EB");
         this.props.dispatch(BudgetActions2.deleteBudgetAsync(id));
+    }
+
+    updateBudget(id){
+        console.log('updateBudget(id) inside budget2', "...EB");
+        this.props.dispatch(BudgetActions2.updateBudgetAsync(id));
     }
 
     render() {
@@ -26,14 +32,11 @@ class TableItem extends Component {
         {/* Page Load and Post Back*/}
 
         {/* Cost Item Column */}
-        {/* <td>{this.props.item.get('costitem')}</td> */}
-        {/* <td> <input onChange={(v)=>this.updateForm(v.target.value, 'costitem')} type="text" value={ this.props.item.get('costitem') || "--insert cost item--" } /> </td> */}
         <td> {this.props.item.get('costitem') ? this.props.item.get('costitem') : 
             <td> <input onChange={(v)=>this.updateForm(v.target.value, 'costitem')} type="text" value={ this.props.item.get('costitem') || "--insert cost item--" } /> </td>
         } </td>
 
         {/* Forecast Column */}
-        {/* <td> {this.props.item.get('forecastamount')}</td> */}
         <td> {this.props.item.get('forecastamount') ? this.props.item.get('forecastamount') : 
             <td> <input onChange={(v)=>this.updateForm(v.target.value, 'forecastamount')} type="text" value={ this.props.item.get('forecastamount') || "--insert forecast amount--" } /> </td>
         } </td>        
@@ -50,10 +53,12 @@ class TableItem extends Component {
         <td> {this.props.item.get('actualamount') ? (this.props.item.get('actualamount') -   this.props.item.get('forecastamount')) / this.props.item.get('forecastamount')  * 100 : 0 }%</td>
         
         {/* Update Button */}
-        <td><a style={{ float: 'left' }}  onClick={()=>this.updateBudget(this.props.item.get("_id", "costitem")) } className="btn btn-primary btn-sm">Update</a></td>
+        <td><a style={{ float: 'left' }}  
+        onClick={()=>this.updateBudget(this.props.item.get("_id", "costitem")) } className="btn btn-primary btn-sm">Update</a></td>
 
         {/* Delete Button */}
-        <td><img style={{cursor:'pointer', float: 'right'}} src="/images/garbage.png" onClick={()=>this.deleteMe(this.props.item.get("_id"))}/></td>
+        <td><img style={{cursor:'pointer', float: 'right'}} src="/images/garbage.png" 
+        onClick={()=>this.deleteMe(this.props.item.get("_id"))}/></td>
     </tr>)
         
     }
@@ -88,12 +93,7 @@ class List extends Component {
     }
 
     addBudget(){ 
-        this.props.dispatch(BudgetActions2.addBudgetAsync(
-            // //this.props.dispatch(BudgetActions2.addBudgetAsync(this.props.newBudget.get('costitem'), this.props.newBudget.get('forecastamount'), this.props.newBudget.get('actualamount') ) )
-            // <input onChange={(v)=>this.updateForm(v.target.value, 'costitem')} type="text" value={this.props.newBudget.get('costitem')} />,
-            // <input onChange={(v)=>this.updateForm(v.target.value, 'forecastamount')} type="text" value={this.props.newBudget.get('forecastamount')} />,
-            // <input onChange={(v)=>this.updateForm(v.target.value, 'actualamount')} type="text" value={this.props.newBudget.get('actualamount')} />
-        ) )
+        this.props.dispatch(BudgetActions2.addBudgetAsync())
     }
 
     updateForm(v, type){
