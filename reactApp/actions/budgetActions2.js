@@ -85,14 +85,12 @@ class BudgetActions2 {
                 });
         };
     }
-
-    static updateBudgetAsync(budget) {
+    
+    static updateBudgetAsync(id) {
         return function (dispatch) {
-            console.log('Updating data using updateBudgetAsync', 'EB')
-            axios.put('http://localhost:7676/updatebudget/'+id.toString())
-                 .then(function() {
-                  //dispatch(BudgetActions2.loadBudgetAsync());                
-                  dispatch(BudgetActions2.updateBudget());
+            console.log('Updating data using updateBudgetAsync id: ', id.toString());
+            axios.put('http://localhost:7676/updatebudget/'+ id.toString())
+                 .then(function() {dispatch(BudgetActions2.reloadBudgetAsync());
                 dispatch(addNotification({title: 'Success', message: 'The budget item ' + budget.get('costitem') + ' was updated', level: 'success' }));
             })
             .catch(function (response) {
@@ -105,7 +103,7 @@ class BudgetActions2 {
 
     static addBudgetAsync(costitem, forecastamount, actualamount) {
         return function (dispatch) { 
-            console.log('Adding a new line', 'EB')
+            console.log('Adding a new line', 'EB');
             axios.post('http://localhost:7676/budget', { costitem: costitem, forecastamount: forecastamount, actualamount: actualamount})
                 .then(function (response) {                    
                     dispatch(BudgetActions2.addBudget(response.data));
