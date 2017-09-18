@@ -88,10 +88,13 @@ class BudgetActions2 {
     
     static updateBudgetAsync(id) {
         return function (dispatch) {
-            console.log('Updating data using updateBudgetAsync id: ', id.toString());
-            axios.put('http://localhost:7676/updatebudget/'+ id.toString())
+            console.log('First Delete the old record id: ', id.toString());
+            axios.delete('http://localhost:7676/delete_budget/'+id.toString());
+            console.log('Now insert the new record with the new data id: ', id.toString());
+            axios.put('http://localhost:7676/budget_update/'+ id.toString())
                  .then(function() {dispatch(BudgetActions2.reloadBudgetAsync());
-                dispatch(addNotification({title: 'Success', message: 'The budget item ' + budget.get('costitem') + ' was updated', level: 'success' }));
+            console.log('Done reloading inside updateBudgetAsync id: ', id.toString());                    
+                //dispatch(addNotification({title: 'Success', message: 'The budget item ' + budget.get('costitem') + ' was updated', level: 'success' }));
             })
             .catch(function (response) {
                 //console.log('Error updating course ' + response);
@@ -99,7 +102,6 @@ class BudgetActions2 {
             });
         };
     }
-
 
     static addBudgetAsync(costitem, forecastamount, actualamount) {
         return function (dispatch) { 
