@@ -45,7 +45,8 @@ class BudgetActions2 {
     // ===================================================================== //
 
     static loadBudgetAsync() {
-        return function (dispatch) { 
+        return function (dispatch) {
+            console.log('loadBudgetAsync', "loading data...EB");
             axios.get('http://localhost:7676/budgets')
                 .then(function (response) {                    
                     dispatch(BudgetActions2.loadBudget(response.data));
@@ -60,6 +61,7 @@ class BudgetActions2 {
     static reloadBudgetAsync() {
         return function (dispatch) { 
             return new Promise((resolve, reject)=>{
+                console.log('reloadBudgetAsync', "reloading data...EB");
                 axios.get('http://localhost:7676/budgets')
                 .then(response=>{       
                     dispatch(BudgetActions2.loadBudget(response.data));
@@ -73,10 +75,8 @@ class BudgetActions2 {
 
 
     static deleteBudgetAsync(id) {
-        return function (dispatch) { 
-            
-            console.log('ID', id)
-            
+        return function (dispatch) {
+            console.log('Deleting data using deleteBudgetAsync...EB', id);
             axios.delete('http://localhost:7676/delete_budget/'+id.toString())
                 .then(dispatch(BudgetActions2.reloadBudgetAsync()) )        
                 .catch(function (response) {
@@ -86,16 +86,13 @@ class BudgetActions2 {
         };
     }
 
-
-
     static updateBudgetAsync(budget) {
-        return function (dispatch) { 
-            
-            console.log('ID', id)
-            
+        return function (dispatch) {
+            console.log('Updating data using updateBudgetAsync', 'EB')
             axios.put('http://localhost:7676/updatebudget/'+id.toString())
                  .then(function() {
-                  dispatch(BudgetActions2.loadBudgetAsync());                
+                  //dispatch(BudgetActions2.loadBudgetAsync());                
+                  dispatch(BudgetActions2.updateBudget());
                 dispatch(addNotification({title: 'Success', message: 'The budget item ' + budget.get('costitem') + ' was updated', level: 'success' }));
             })
             .catch(function (response) {
@@ -108,7 +105,7 @@ class BudgetActions2 {
 
     static addBudgetAsync(costitem, forecastamount, actualamount) {
         return function (dispatch) { 
-            console.log('costitem', costitem)
+            console.log('Adding a new line', 'EB')
             axios.post('http://localhost:7676/budget', { costitem: costitem, forecastamount: forecastamount, actualamount: actualamount})
                 .then(function (response) {                    
                     dispatch(BudgetActions2.addBudget(response.data));
@@ -119,24 +116,6 @@ class BudgetActions2 {
                 });
         };
     }
-
-
-
-    // static updateCourseAsync(course) {
-    //     //console.log('course in actionCreators ', `/courses/${course.get('Id')}`);
-    //     return function (dispatch) {
-    //         axios.put(base + '/courses/' + course.get('Id'), course)
-    //         .then(function() {
-    //             // MODIFY API TO RETURN THE UPDATED COURSE - TO DO
-    //             dispatch(CourseActions.loadCoursesAsync());                
-    //             dispatch(addNotification({title: 'Success', message: 'The course ' + course.get('title') + ' was updated', level: 'success' }));
-    //         })
-    //         .catch(function (response) {
-    //             //console.log('Error updating course ' + response);
-    //             dispatch(addNotification({title: 'Error', message: 'Error updating course ' +  response , level: 'error', autoDismiss: 0 }));                     
-    //         });
-    //     };
-    // }
 
 }
 
