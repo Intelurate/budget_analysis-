@@ -31,9 +31,6 @@ module.exports.set = (function (app) {
 		});
 	});
 
-
-
-
 	app.post('/budget', function (req, res) {			
 		db.collection("budgets").save(req.body, function(err, data) {									
 			if(!err){
@@ -49,11 +46,15 @@ module.exports.set = (function (app) {
 				res.send({delete: true});
 			}
 		});
-		
 	});
 
-	
-
+	app.put('/budget_update/:id', function (req, res) {			
+		db.collection("budgets").save(req.body, function(err, data) {									
+			if(!err){
+				res.send(req.body);
+			}
+		});
+	});
 
 
 	// // List the database collections available
