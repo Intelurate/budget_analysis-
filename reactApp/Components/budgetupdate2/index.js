@@ -28,6 +28,7 @@ class TableItem extends Component {
     }
     
     updateMe(id){        
+        console.log('budgetupdate2.....EB','updateMe(id){.....EB')
         this.props.dispatch(BudgetActions2.BudgetUpdate(id));
     }
 
@@ -53,12 +54,14 @@ class BudgetUpdate2 extends Component {
         console.log(this.props)
     }
 
-    updateBudget(id){        
+    updateBudget(id){
+        console.log('budgetupdate2.....EB','updateBudget(id){.....EB');
         this.props.dispatch(BudgetActions2.updateBudget(id), { value: v, type: type});
     }
 
     render() {
-        
+
+    console.log('budgetupdate2.....EB','render() {.....EB');
     var tb = Table(this.props.budgetList);
 
     return (
@@ -79,7 +82,7 @@ class BudgetUpdate2 extends Component {
                         <td><input onChange={(v)=>this.updateBudget(v.target.value, 'costitem')} type="text" value={this.props.budget.get('costitem')} />&nbsp;&nbsp;</td>
                         <td><input onChange={(v)=>this.updateBudget(v.target.value, 'forecastamount')} type="text" value={this.props.budget.get('forecastamount')} />&nbsp;&nbsp;</td>
                         <td><input onChange={(v)=>this.updateBudget(v.target.value, 'actualamount')} type="text" value={this.props.budget.get('actualamount')} />&nbsp;&nbsp;</td>
-                        <td><a style={{ float: 'right' }}  onClick={()=>this.updateBudget() } className="btn btn-primary btn-sm">Update Budget Item</a></td>
+                        <td><a style={{ float: 'right' }} onClick={()=>this.updateBudget() } className="btn btn-primary btn-sm">Update Budget Item</a></td>
                     </tr>
                 </tbody>
             </table>
@@ -90,6 +93,7 @@ class BudgetUpdate2 extends Component {
 };
 
 function mapStateToProps(state) {
+    console.log('budgetupdate2.....EB','function mapStateToProps(state) {.....EB');
     return {
         budgetList: state.budget.get('list'),
         newBudget: state.budget.get('newBudget')
