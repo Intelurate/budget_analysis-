@@ -17,18 +17,35 @@ class TableItem extends Component {
     }
 
    deleteMe(id){
-        console.log('deleteMe(id) inside budget2', "...EB");
+        console.log('deleteMe(id) inside budget2', "....EB");
         this.props.dispatch(BudgetActions2.deleteBudgetAsync(id));
     }
 
     updateBudget(id, costitem, forecastamount, actualamount){
-        console.log('updateBudget(id) inside budget2', "...EB");
+        console.log('updateBudget(id) inside budget2', ".....EB");
         this.props.dispatch(BudgetActions2.updateBudgetAsync(id));
     }
 
     updateForm(id, costitem, forecastamount, actualamount){
-        console.log('updateForm(id) inside budget2', "...EB");
-        this.props.dispatch(BudgetActions2.updateBudgetAsync(id, costitem, forecastamount, actualamount));
+        console.log('updateForm(id) inside budget2', "......EB");
+        this.props.dispatch(BudgetActions2.updateFormAsync(id, costitem, forecastamount, actualamount));
+    }
+
+    updateCostItem(idx, costitemx, forecastamountx, actualamountx){
+        console.log('updateCostItem(id, costitemx){', "......EB");
+        console.log('updateCostItem values:', idx, costitemx, forecastamountx, actualamountx );
+        this.props.dispatch(BudgetActions2.updateCostItemAsync(idx, costitemx, forecastamountx, actualamountx));
+    }
+
+    updateForecastAmount(idx, foreCastamountx){
+        console.log('updateCostItem values:', idx, foreCastamountx ); 
+        this.props.dispatch(BudgetActions2.updateForecastAmountAsync(idx, foreCastamountx));
+    }
+
+    updateActualAmount(idx, updateActualamountx){
+        console.log('updateCostItem(id, updateActualamountx){', "......EB");
+        console.log('updateCostItem values:', idx, updateActualamountx); 
+        this.props.dispatch(BudgetActions2.updateActualAmountAsync(idx, updateActualamountx));
     }
 
     render() {
@@ -37,18 +54,21 @@ class TableItem extends Component {
         {/* Page Load and Post Back*/}
 
         {/* Cost Item Column */}
-        <td> {this.props.item.get('costitem') ? this.props.item.get('costitem') : 
-            <input onChange={(v)=>this.updateForm(v.target.value, 'costitem')} type="text" value={ this.props.item.get('costitem') || "--insert COST item--" } /> 
+        <td> {this.props.item.get('costitem' ) ? this.props.item.get('costitem') : 
+            <input onChange={(v)=>this.updateCostItem( this.props.item.get('_id') , v.target.value, this.props.item.get('_forecastamount'), this.props.item.get('actualamount')  )} 
+            type="text" value={ this.props.item.get('costitem') || "--insert COST item--" } />
         } </td>
 
         {/* Forecast Column */}
         <td> {this.props.item.get('forecastamount') ? this.props.item.get('forecastamount') : 
-            <input onChange={(v)=>this.updateForm(v.target.value, 'forecastamount')} type="text" value={ this.props.item.get('forecastamount') || "--insert FORECAST amount--" } />
+            <input onChange={(v)=>this.updateForecastAmount(this.props.item.get("_id") , v.target.value)} 
+            type="text" value={ this.props.item.get('forecastamount') || "--insert FORECAST amount--" } />
         } </td>        
 
         {/* <td> {this.props.item.get('actualamount') || 0 }</td> */}
         <td> {this.props.item.get('actualamount') ? this.props.item.get('actualamount') : 
-            <input onChange={(v)=>this.updateForm(v.target.value, 'actualamount')} type="text" value={ this.props.item.get('actualamount') || "--insert ACTUAL amount--" } />
+            <input onChange={(v)=>this.updateActualAmount(this.props.item.get("_id") , v.target.value)} 
+            type="text" value={ this.props.item.get('actualamount') || "--insert ACTUAL amount--" } />
         } </td>           
 
         {/* Variance Column */}
