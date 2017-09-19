@@ -55,20 +55,20 @@ class TableItem extends Component {
 
         {/* Cost Item Column */}
         <td> {this.props.item.get('costitem' ) ? this.props.item.get('costitem') : 
-            <input onChange={(v)=>this.updateCostItem( this.props.item.get('_id') , v.target.value, this.props.item.get('_forecastamount'), this.props.item.get('actualamount')  )} 
-            type="text" value={ this.props.item.get('costitem') || "--insert COST item--" } />
+            <input onChange={(v)=>this.updateCostItem( this.props.item.get('_id') , v.target.value, forecastvalueHTML.value, actualamountHTML.value  )} 
+            type="text" id="costitemHTML" value={ this.props.item.get('costitem') || "--insert COST item--" } />
         } </td>
 
         {/* Forecast Column */}
         <td> {this.props.item.get('forecastamount') ? this.props.item.get('forecastamount') : 
             <input onChange={(v)=>this.updateForecastAmount(this.props.item.get("_id") , v.target.value)} 
-            type="text" value={ this.props.item.get('forecastamount') || "--insert FORECAST amount--" } />
+            type="text" id="forecastvalueHTML" value={ this.props.item.get('forecastamount') || "--insert FORECAST amount--" } />
         } </td>        
 
         {/* <td> {this.props.item.get('actualamount') || 0 }</td> */}
         <td> {this.props.item.get('actualamount') ? this.props.item.get('actualamount') : 
             <input onChange={(v)=>this.updateActualAmount(this.props.item.get("_id") , v.target.value)} 
-            type="text" value={ this.props.item.get('actualamount') || "--insert ACTUAL amount--" } />
+            type="text" id="actualamountHTML" value={ this.props.item.get('actualamount') || "--insert ACTUAL amount--" } />
         } </td>           
 
         {/* Variance Column */}
