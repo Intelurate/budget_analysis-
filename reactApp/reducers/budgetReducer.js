@@ -24,34 +24,29 @@ function budgetReducer(state = budgetInitialState.budget, action) {
     switch (action.type) {
 
         case constants.UPDATE_NEW_BUDGET:
-
+            console.log('Switch Case 1','budgetReducer...EB');
             state = state.updateIn(['newBudget', action.newBudget.type], (v)=> action.newBudget.value ); 
-
             return state; 
 
         case constants.ADD_BUDGET: 
-			
+        console.log('Switch Case 2','budgetReducer...EB');
 			var cnt = state.get('list').count();
 			state = state.updateIn(['list', cnt], (v)=> Immutable.fromJS(action.budget)); 
             state = state.updateIn(['newBudget'], (v)=> Immutable.fromJS(budgetInitialState.budget.get('newBudget')) ); 
-
             return state;  
 
+        case constants.UPDATE_BUDGET:
+            console.log('Switch Case 3','budgetReducer...EB');
+            state = state.updateIn(['newBudget', action.newBudget.type], (v)=> action.newBudget.value ); 
+            return state; 
 
-
-            case constants.UPDATE_BUDGET:
-            
-                        state = state.updateIn(['newBudget', action.newBudget.type], (v)=> action.newBudget.value ); 
-            
-                        return state; 
-
-
-
-        case constants.LOAD_BUDGET:             	
+        case constants.LOAD_BUDGET:
+            console.log('Switch Case 4','budgetReducer...EB');      	
 			state = state.updateIn(['list'], (v)=> Immutable.fromJS(action.budget)); 
             return state;  
 
         case "SHOW_SPECIAL_ROW":
+            console.log('Switch Case 5','budgetReducer...EB');
             state.set("IsSpecialRowVisible", true);
             return state;
 
@@ -59,7 +54,5 @@ function budgetReducer(state = budgetInitialState.budget, action) {
             return state;
     }
 }
-
-
 
 export default budgetReducer;
