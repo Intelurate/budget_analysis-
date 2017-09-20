@@ -112,8 +112,8 @@ class BudgetActions2 {
             console.log('updateCostItemAsync This should be the costitem: ', costitemx.toString());
             axios.delete('http://localhost:7676/delete_budget/'+ idx.toString());
             console.log('updateCostItemAsync Reinsert the line with all its new data: ', idx.toString());
-            axios.post('http://localhost:7676/budget', { costitemx, foreacastamountx, actualamountx }).then(function() {dispatch(BudgetActions2.reloadBudgetAsync());
-            console.log('updateCostItemAsync Done reloading inside updateBudgetAsync id: ', costitemx.toString());                    
+            axios.post('http://localhost:7676/budget', { costitemx, forecastamountx, actualamountx }).then(function() {dispatch(BudgetActions2.reloadBudgetAsync());
+            console.log('updateCostItemAsync Done reloading inside updateBudgetAsync id: ', idx.toString());                    
             })
             .catch(function (response) {
                 dispatch(addNotification({title: 'Error', message: 'Error updating budget item ' +  response , level: 'error', autoDismiss: 0 }));                     
@@ -121,15 +121,15 @@ class BudgetActions2 {
         };
     }
 
-    static updateForecastAmountAsync(id, forecastamount){
+    static updateForecastAmountAsync(idx, costitemx, forecastamountx, actualamountx){
         return function (dispatch) {
             //...29Sep2017...EB
-            console.log('updateForecastAmountAsync Delete this line with this ID: ', id.toString());
-            console.log('updateForecastAmountAsync This should be the forecast amount: ', forecastamount.toString());
-            axios.delete('http://localhost:7676/delete_budget/'+ id.toString());
-            console.log('updateForecastAmountAsync Reinsert the line with all its new data: ', id.toString());
-            axios.post('http://localhost:7676/budget', { forecastamount }).then(function() {dispatch(BudgetActions2.reloadBudgetAsync());
-            console.log('updateForecastAmountAsync Done reloading inside budgetActions2 id: ', forecastamount.toString());                    
+            console.log('updateForecastAmountAsync Delete this line with this ID: ', idx.toString());
+            console.log('updateForecastAmountAsync This should be the forecast amount: ', forecastamountx.toString());
+            axios.delete('http://localhost:7676/delete_budget/'+ idx.toString());
+            console.log('updateForecastAmountAsync Reinsert the line with all its new data: ', idx.toString());
+            axios.post('http://localhost:7676/budget', { costitemx, forecastamountx, actualamountx }).then(function() {dispatch(BudgetActions2.reloadBudgetAsync());
+            console.log('updateForecastAmountAsync Done reloading inside budgetActions2 id: ', forecastamountx.toString());                    
             })
             .catch(function (response) {
                 //console.log('Error updating course ' + response);
@@ -138,15 +138,15 @@ class BudgetActions2 {
         };
     }
 
-    static updateActualAmountAsync(id, actualAmount){
+    static updateActualAmountAsync(idx, costitemx, forecastamountx, actualamountx){
         return function (dispatch) {
             //...29Sep2017...EB
-            console.log('updateActualAmountAsync Delete this line with this ID: ', id.toString());
-            console.log('updateActualAmountAsync This should be the actualAmount: ', actualAmount.toString());
-            axios.delete('http://localhost:7676/delete_budget/'+ id.toString());
-            console.log('updateActualAmountAsync Reinsert the line with all its new data: ', id.toString());
-            axios.post('http://localhost:7676/budget', { actualAmount }).then(function() {dispatch(BudgetActions2.reloadBudgetAsync());
-            console.log('updateActualAmountAsync Done reloading inside updateBudgetAsync id: ', actualAmount.toString());                    
+            console.log('updateActualAmountAsync Delete this line with this ID: ', idx.toString());
+            console.log('updateActualAmountAsync This should be the actualAmount: ', actualamountx.toString());
+            axios.delete('http://localhost:7676/delete_budget/'+ idx.toString());
+            console.log('updateActualAmountAsync Reinsert the line with all its new data: ', idx.toString());
+            axios.post('http://localhost:7676/budget', { costitemx, forecastamountx, actualamountx }).then(function() {dispatch(BudgetActions2.reloadBudgetAsync());
+            console.log('updateActualAmountAsync Done reloading inside updateBudgetAsync id: ', actualamountx.toString());                    
             })
             .catch(function (response) {
                 //console.log('Error updating course ' + response);
