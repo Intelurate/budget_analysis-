@@ -32,62 +32,59 @@ class TableItem extends Component {
     }
 
     updateCostItem(idx, costitemx, forecastamountx, actualamountx){
-        console.log('updateCostItem(id, costitemx){', "......EB");
         console.log('updateCostItem values:', idx, costitemx, forecastamountx, actualamountx );
         this.props.dispatch(BudgetActions2.updateCostItemAsync(idx, costitemx, forecastamountx, actualamountx));
     }
 
-    updateForecastAmount(idx, foreCastamountx){
-        console.log('updateCostItem values:', idx, foreCastamountx ); 
-        this.props.dispatch(BudgetActions2.updateForecastAmountAsync(idx, foreCastamountx));
+    updateForecastAmount(idx, costitemx, forecastamountx, actualamountx){
+        console.log('updateForecastAmount values:', idx, costitemx, forecastamountx, actualamountx );
+        this.props.dispatch(BudgetActions2.updateForecastAmountAsync(idx, costitemx, forecastamountx, actualamountx));
     }
 
-    updateActualAmount(idx, updateActualamountx){
-        console.log('updateCostItem(id, updateActualamountx){', "......EB");
-        console.log('updateCostItem values:', idx, updateActualamountx); 
-        this.props.dispatch(BudgetActions2.updateActualAmountAsync(idx, updateActualamountx));
+    updateActualAmount(idx, costitemx, forecastamountx, actualamountx){
+        console.log('updateActualAmount values:', idx, costitemx, forecastamountx, actualamountx );
+        this.props.dispatch(BudgetActions2.updateActualAmountAsync(idx, costitemx, forecastamountx, actualamountx));
     }
 
     render() {
-        return (    
-    <tr>
-        {/* Page Load and Post Back*/}
+        return (                 
+            <tr>
+                {/* Page Load and Post Back*/}
 
-        {/* Cost Item Column */}
-        <td> {this.props.item.get('costitem' ) ? this.props.item.get('costitem') : 
-            <input onChange={(v)=>this.updateCostItem( this.props.item.get('_id') , v.target.value, forecastvalueHTML.value, actualamountHTML.value  )} 
-            type="text" id="costitemHTML" value={ this.props.item.get('costitem') || "--insert COST item--" } />
-        } </td>
+                {/* Cost Item Column */}
+                <td> {this.props.item.get('costitem' ) ? this.props.item.get('costitem') : 
+                    <input onChange={(v)=>this.updateCostItem( this.props.item.get('_id') , v.target.value, forecastvalueHTML.value, actualamountHTML.value  )} 
+                    type="text" id="costitemHTML" value={ this.props.item.get('costitem') || "--insert COST item--" } />
+                } </td>
 
-        {/* Forecast Column */}
-        <td> {this.props.item.get('forecastamount') ? this.props.item.get('forecastamount') : 
-            <input onChange={(v)=>this.updateForecastAmount(this.props.item.get("_id") , v.target.value)} 
-            type="text" id="forecastvalueHTML" value={ this.props.item.get('forecastamount') || "--insert FORECAST amount--" } />
-        } </td>        
+                {/* Forecast Column */}
+                <td> {this.props.item.get('forecastamount') ? this.props.item.get('forecastamount') : 
+                    <input onChange={(v)=>this.updateForecastAmount( this.props.item.get('_id') , costitemHTML.value, v.target.value, actualamountHTML.value  )} 
+                    type="text" id="forecastvalueHTML" value={ this.props.item.get('forecastamount') || "--insert FORECAST amount--" } />
+                } </td>        
 
-        {/* <td> {this.props.item.get('actualamount') || 0 }</td> */}
-        <td> {this.props.item.get('actualamount') ? this.props.item.get('actualamount') : 
-            <input onChange={(v)=>this.updateActualAmount(this.props.item.get("_id") , v.target.value)} 
-            type="text" id="actualamountHTML" value={ this.props.item.get('actualamount') || "--insert ACTUAL amount--" } />
-        } </td>           
+                {/* <td> {this.props.item.get('actualamount') || 0 }</td> */}
+                <td> {this.props.item.get('actualamount') ? this.props.item.get('actualamount') : 
+                    <input onChange={(v)=>this.updateActualAmount( this.props.item.get('_id') , costitemHTML.value, forecastvalueHTML.value, v.target.value  )} 
+                    type="text" id="actualamountHTML" value={ this.props.item.get('actualamount') || "--insert ACTUAL amount--" } />
+                } </td>           
 
-        {/* Variance Column */}
-        <td> {this.props.item.get('actualamount') ? this.props.item.get('actualamount') - this.props.item.get('forecastamount')  : 0 } </td>
+                {/* Variance Column */}
+                <td> {this.props.item.get('actualamount') ? this.props.item.get('actualamount') - this.props.item.get('forecastamount')  : 0 } </td>
 
-        {/* Variance Percent Column */}
-        <td> {this.props.item.get('actualamount') ? (this.props.item.get('actualamount') -   this.props.item.get('forecastamount')) / this.props.item.get('forecastamount')  * 100 : 0 }%</td>
-        
-        {/* Update Button */}
-        <td><a style={{ float: 'left' }}  
-        onClick={()=>this.updateBudget(this.props.item.get("_id", "costitem", "forecastamount", "actualamount")) } className="btn btn-primary btn-sm">Edit</a></td>
+                {/* Variance Percent Column */}
+                <td> {this.props.item.get('actualamount') ? (this.props.item.get('actualamount') - this.props.item.get('forecastamount')) / this.props.item.get('forecastamount')  * 100 : 0 }%</td>
+                
+                {/* Update Button */}
+                <td><a style={{ float: 'left' }}  
+                onClick={()=>this.updateBudget(this.props.item.get("_id", "costitem", "forecastamount", "actualamount")) } className="btn btn-primary btn-sm" id="btnSave">Save</a></td>
 
-        {/* Delete Button */}
-        <td><img style={{cursor:'pointer', float: 'right'}} src="/images/garbage.png" 
-        onClick={()=>this.deleteMe(this.props.item.get("_id"))}/></td>
-    </tr>)
-        
-    }
-}
+                {/* Delete Button */}
+                <td><img style={{cursor:'pointer', float: 'right'}} src="/images/garbage.png" 
+                onClick={()=>this.deleteMe(this.props.item.get("_id"))} id="btnDelete"/></td>
+            </tr>
+            )}
+        }
 
 TableItem = connect()(TableItem);
 
