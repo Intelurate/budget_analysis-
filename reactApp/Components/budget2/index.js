@@ -21,9 +21,17 @@ class TableItem extends Component {
         this.props.dispatch(BudgetActions2.deleteBudgetAsync(id));
     }
 
-    updateBudget(id, costitem, forecastamount, actualamount){
-        console.log('updateBudget(id) inside budget2', ".....EB");
-        this.props.dispatch(BudgetActions2.updateBudgetAsync(id));
+    updateBudget(index){        
+
+        if(this.props.newBudget.get("_id")==="new"){
+            this.props.dispatch(BudgetActions2.addBudgetAsync(
+                    this.props.newBudget.get("costitem"), 
+                    this.props.newBudget.get("forecastamount"), this.props.newBudget.get("actualamount"), index) )
+        }else{
+            this.props.dispatch(BudgetActions2.updateBudgetAsync(
+                this.props.newBudget.get("_id"), this.props.newBudget.get("costitem"), 
+                this.props.newBudget.get("forecastamount"), this.props.newBudget.get("actualamount"), index));
+        }
     }
 
     updateForm(id, costitem, forecastamount, actualamount){
@@ -46,27 +54,45 @@ class TableItem extends Component {
         this.props.dispatch(BudgetActions2.updateActualAmountAsync(idx, costitemx, forecastamountx, actualamountx));
     }
 
+
+    editSelectedRecord(key, value, index){
+        this.props.dispatch(BudgetActions2.editSelectedRecord(key, value, index))
+    }
+
+    editBudget(index){
+        this.props.dispatch(BudgetActions2.editBudget(index))
+    }
+
+    focusRecord(key, value, index){
+
+        this.props.dispatch( BudgetActions2.focusRecord(key, value, index) )
+
+    }
+
     render() {
         return (                 
             <tr>
                 {/* Page Load and Post Back*/}
 
                 {/* Cost Item Column */}
-                <td> {this.props.item.get('costitem' ) ? this.props.item.get('costitem') : 
-                    <input onChange={(v)=>this.updateCostItem( this.props.item.get('_id') , v.target.value, forecastvalueHTML.value, actualamountHTML.value  )} 
-                    type="text" id="costitemHTML" value={ this.props.item.get('costitem') || "--insert COST item--" } />
+                <td> {!this.props.item.get('edit') ? this.props.item.get('costitem') : 
+                    <input onFocus={(v)=>this.focusRecord( "costitem" , v.target.value, this.props.index )} 
+                            onChange={(v)=>this.editSelectedRecord( "costitem" , v.target.value, this.props.index )} 
+                    type="text" value={ this.props.item.get('costitem') } />
                 } </td>
 
                 {/* Forecast Column */}
-                <td> {this.props.item.get('forecastamount') ? this.props.item.get('forecastamount') : 
-                    <input onChange={(v)=>this.updateForecastAmount( this.props.item.get('_id') , costitemHTML.value, v.target.value, actualamountHTML.value  )} 
-                    type="text" id="forecastvalueHTML" value={ this.props.item.get('forecastamount') || "--insert FORECAST amount--" } />
+                <td> {!this.props.item.get('edit') ? this.props.item.get('forecastamount') : 
+                    <input  onFocus={(v)=>this.focusRecord( "costitem" , v.target.value, this.props.index )}  
+                        onChange={(v)=>this.editSelectedRecord( 'forecastamount', v.target.value, this.props.index )} 
+                    type="text" value={ this.props.item.get('forecastamount')} />
                 } </td>        
 
                 {/* <td> {this.props.item.get('actualamount') || 0 }</td> */}
-                <td> {this.props.item.get('actualamount') ? this.props.item.get('actualamount') : 
-                    <input onChange={(v)=>this.updateActualAmount( this.props.item.get('_id') , costitemHTML.value, forecastvalueHTML.value, v.target.value  )} 
-                    type="text" id="actualamountHTML" value={ this.props.item.get('actualamount') || "--insert ACTUAL amount--" } />
+                <td> {!this.props.item.get('edit') ? this.props.item.get('actualamount') : 
+                    <input onFocus={(v)=>this.focusRecord( "costitem" , v.target.value, this.props.index )} 
+                            onChange={(v)=>this.editSelectedRecord('actualamount',  v.target.value, this.props.index  )} 
+                    type="text" value={ this.props.item.get('actualamount')} />
                 } </td>           
 
                 {/* Variance Column */}
@@ -75,9 +101,9 @@ class TableItem extends Component {
                 {/* Variance Percent Column */}
                 <td> {this.props.item.get('actualamount') ? (this.props.item.get('actualamount') - this.props.item.get('forecastamount')) / this.props.item.get('forecastamount')  * 100 : 0 }%</td>
                 
-                {/* Update Button */}
-                <td><a style={{ float: 'left' }}  
-                onClick={()=>this.updateBudget(this.props.item.get("_id", "costitem", "forecastamount", "actualamount")) } className="btn btn-primary btn-sm" id="btnSave">Save</a></td>
+                <td>{this.props.item.get("edit") === true 
+                ? <a style={{ float: 'left' }} onClick={()=>this.updateBudget(this.props.index) } className="btn btn-primary btn-sm" id="btnSave">Save</a> 
+                : <a style={{ float: 'left' }} onClick={()=>this.editBudget(this.props.index) } className="btn btn-primary btn-sm" id="btnSave">Edit</a> }</td>
 
                 {/* Delete Button */}
                 <td><img style={{cursor:'pointer', float: 'right'}} src="/images/garbage.png" 
@@ -86,7 +112,14 @@ class TableItem extends Component {
             )}
         }
 
-TableItem = connect()(TableItem);
+
+function mapStateToProps(state) {
+    return {
+        budgetList: state.budget.get('list'),
+        newBudget: state.budget.get('newBudget')
+    };
+}
+TableItem = connect(mapStateToProps)(TableItem);
 
 const Table = (list) => {
     var items = list.map((v,i)=>{
@@ -115,7 +148,7 @@ class List extends Component {
     }
 
     addBudget(){ 
-        this.props.dispatch(BudgetActions2.addBudgetAsync())
+        this.props.dispatch(BudgetActions2.addBudgetToCreate());
     }
 
     updateForm(v, type){
