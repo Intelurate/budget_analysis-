@@ -20,8 +20,6 @@ function getBudgets(data){
 	})
 }
 
-
-
 module.exports.set = (function (app) {
 	
 	app.get('/budgets', function (req, res) {
@@ -39,6 +37,20 @@ module.exports.set = (function (app) {
 		});
 	});
 
+	app.put('/budget/:id', function (req, res) {			
+
+		console.log(req.params.id )
+		console.log(req.body)
+		db.collection("budgets").update({_id: mongojs.ObjectId(req.params.id) },  { costitem: req.body.costitem, forecastamount: req.body.forecastamount, actualamount: req.body.actualamount }, function(err, data) {									
+			
+			console.log('data', data);
+
+			if(!err){
+				res.send(req.body);
+			}
+		});
+	});
+
 	app.delete('/delete_budget/:id', function (req, res) {
 
 		db.collection("budgets").remove({ _id: mongojs.ObjectId(req.params.id) }, function(err, data) {						
@@ -48,7 +60,7 @@ module.exports.set = (function (app) {
 		});
 	});
 
-	app.put('/budget_update/:id', function (req, res) {			
+	app.put('/update_budget/:id', function (req, res) {			
 		db.collection("budgets").save(req.body, function(err, data) {									
 			if(!err){
 				res.send(req.body);
