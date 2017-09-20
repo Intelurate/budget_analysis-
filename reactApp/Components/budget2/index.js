@@ -83,14 +83,14 @@ class TableItem extends Component {
 
                 {/* Forecast Column */}
                 <td> {!this.props.item.get('edit') ? this.props.item.get('forecastamount') : 
-                    <input  onFocus={(v)=>this.focusRecord( "costitem" , v.target.value, this.props.index )}  
-                        onChange={(v)=>this.editSelectedRecord( 'forecastamount', v.target.value, this.props.index )} 
+                    <input  onFocus={(v)=>this.focusRecord( "forecastamount" , v.target.value, this.props.index )}  
+                                onChange={(v)=>this.editSelectedRecord( 'forecastamount', v.target.value, this.props.index )} 
                     type="text" value={ this.props.item.get('forecastamount')} />
                 } </td>        
 
                 {/* <td> {this.props.item.get('actualamount') || 0 }</td> */}
                 <td> {!this.props.item.get('edit') ? this.props.item.get('actualamount') : 
-                    <input onFocus={(v)=>this.focusRecord( "costitem" , v.target.value, this.props.index )} 
+                    <input onFocus={(v)=>this.focusRecord( "actualamount" , v.target.value, this.props.index )} 
                             onChange={(v)=>this.editSelectedRecord('actualamount',  v.target.value, this.props.index  )} 
                     type="text" value={ this.props.item.get('actualamount')} />
                 } </td>           
