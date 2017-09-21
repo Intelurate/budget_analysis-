@@ -19,6 +19,7 @@ class BudgetActions2 {
     }
 
     static focusRecord(key, value, index) {
+        console.log('inside static focusRecord: ', key, value, index);
         return {
             type:"FOCUS_ITEM",
             key: key,
@@ -29,20 +30,20 @@ class BudgetActions2 {
 
     static addBudgetToCreate() {
         return {
-            type: "ADD_BUDGET_TO_CREATE"
+            type: Constants.ADD_BUDGET_TO_CREATE
         };
     }
 
     static editBudget(index){
         return {
-            type: "EDIT_BUDGET",
+            type: Constants.EDIT_BUDGET,
             index: index
         };
     }
 
     static editSelectedRecord(key, value, index) {
         return {
-            type: "EDIT_SELECTED_VALUE",
+            type: Constants.EDIT_SELECTED_VALUE,
             key: key,
             value: value,
             index: index
@@ -105,7 +106,6 @@ class BudgetActions2 {
         };
     }
 
-
     static deleteBudgetAsync(id) {
         return function (dispatch) {
             console.log('Deleting data using deleteBudgetAsync...EB', id);
@@ -121,7 +121,7 @@ class BudgetActions2 {
     static updateBudgetAsync(id, costitem, forecastamount, actualamount, index){
         return function (dispatch) {
 
-
+            console.log('Deleting data using updateBudgetAsync...EB', id);
             axios.put('http://localhost:7676/budget/'+id.toString(), {  costitem: costitem, forecastamount: forecastamount, actualamount: actualamount })
             .then(function (response) {                    
                 dispatch(BudgetActions2.addBudget(response.data, index));
