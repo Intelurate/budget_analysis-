@@ -26,11 +26,13 @@ export const history = syncHistoryWithStore(appHistory, store);
 // const store = createStore(rootReducer, defaultState, composeEnhancers(applyMiddleware(thunk)));
 // export const history = syncHistoryWithStore(hashHistory, store);
 
+console.log('Inside Store','...EB');
 if (module.hot) {
     module.hot.accept('./reducers/', () => {
         const nextRootReducer = require('./reducers/index').default;
         store.replaceReducer(nextRootReducer);
-    });
+        }
+    );
 }
 
 export default store;
